@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const user = require('./routes/user');
+const auth = require("./routes/auth");
 
 const app = express();
 
@@ -17,6 +18,7 @@ mongoose.connect(db_connection).then(() =>
 app.use(express.json());
 
 app.use("/api", user);
+app.use("/api", auth);
 
 app.listen(port, () => {
     console.log(`Listining in ${port}`)
