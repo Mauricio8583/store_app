@@ -17,8 +17,8 @@ mongoose.connect(db_connection).then(() =>
 
 app.use(express.json());
 
-app.use("/api", user);
-app.use("/api", auth);
+app.use("/api/users", user);
+app.use("/api/auth", auth);
 
 app.listen(port, () => {
     console.log(`Listining in ${port}`)
