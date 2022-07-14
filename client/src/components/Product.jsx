@@ -2,6 +2,20 @@ import { FavoriteBorder, SearchOutlined, ShoppingCartOutlined } from '@material-
 import React from 'react'
 import styled from 'styled-components'
 
+const Info = styled.div`
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 3;
+   display: flex;
+   align-items: center;
+   justfy-content: center;
+   opacity: 0;
+   
+`
+
 const Container = styled.div`
     flex: 1;
     margin: 5;
@@ -13,24 +27,16 @@ const Container = styled.div`
     background-color: #f5fbfd;
     position: relative;
 
+    &:hover ${Info}{
+      opacity: 1;
+      cursor: pointer;
+    }
+
 `
 
 const Image = styled.img`
     height: 75%;
     z-index: 2;
-
-`
-
-const Info = styled.div`
-   width: 100%;
-   height: 100%;
-   position: absolute;
-   top: 0;
-   left: 0;
-   z-index: 3;
-   display: flex;
-   align-items: center;
-   justfy-content: center;
 
 `
 
@@ -43,6 +49,13 @@ const Icon = styled.div`
     align-items: center;
     justfy-content: center;
     margin: 10px;
+    transform: all 0.5 ease;
+    
+
+    &:hover{
+      background-color: #e9f5f5;
+      transform: scale(1.1);
+    }
 
 `
 
