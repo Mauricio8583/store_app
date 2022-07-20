@@ -64,7 +64,7 @@ export const Login = () => {
             <Title>Sign In</Title>
             <Form>
                 <Input placeholder='Username'></Input>
-                <Input placeholder='Password'></Input>
+                <Input placeholder='Password' type="password"></Input>
                 <Button>Login</Button>
                 <Link>Forgot Password</Link>
                 <Link>Create Account</Link>
