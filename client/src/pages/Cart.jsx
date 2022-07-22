@@ -1,3 +1,4 @@
+import { Add, Remove } from '@material-ui/icons'
 import React from 'react'
 import styled from 'styled-components'
 import { Annoucement } from '../components/Annoucement'
@@ -63,6 +64,10 @@ const Info = styled.div`
 
 const Summary = styled.div`
     flex: 1;
+    border: 0.5px solid lightgrey;
+    border-radius: 10px;
+    padding: 20px;
+    height: 50vh;
 
 `
 
@@ -80,6 +85,10 @@ const ProductDetail = styled.div`
 
 const PriceDetail = styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
 `
 
@@ -119,6 +128,65 @@ const ProductSize = styled.span`
 
 `
 
+const ProductAmountContainer = styled.div`
+    display: flex;
+    align-items: center;
+
+`
+
+const ProductAmount = styled.div`
+    font-size: 24px;
+    margin: 5px;
+
+`
+
+const ProductPrice = styled.div`
+    font-size: 30px;
+    font-weight: 200; 
+
+`
+
+const HrStyle = styled.hr`
+    background-color: #eee;
+    border: none;
+    height: 1px;
+
+`
+
+const SummaryTitle = styled.h1`
+    font-weight: 200;
+
+`
+
+const SummaryItem = styled.div`
+    margin: 30px 0px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: ${props => props.type === "total" && "500"};
+    font-size: ${props => props.type === "total" && "24px"};
+
+`
+
+const SummaryItemText = styled.span`
+
+
+`
+
+const SummaryItemPrice = styled.span`
+
+
+`
+
+const Button = styled.button`
+    width: 100%;
+    padding: 10px;
+    background-color: darkgreen;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+`
+
 export const Cart = () => {
   return (
     <Container>
@@ -147,14 +215,60 @@ export const Cart = () => {
                         </Details>
                     </ProductDetail>
                     <PriceDetail>
-                         Price
+                         <ProductAmountContainer>
+                            <Add />
+                            <ProductAmount>1</ProductAmount>
+                            <Remove />
+                         </ProductAmountContainer>
+                     <ProductPrice>
+                        $ 30
+                    </ProductPrice>
                     </PriceDetail>
-                  </Product>
+                 </Product>
+                 <HrStyle />
+                 <Product>
+                    <ProductDetail>
+                        <Image src='https://imgprd19.hobbylobby.com/9/5f/26/95f264323ae49e65b2a53a909fcd7d9ee659f3c7/350Wx350H-422519-0320.jpg' />
+                        <Details>
+                            <ProductName><b>Product</b>: Yellow T-Shirt</ProductName>
+                            <ProductId><b>ID</b>: 12343433</ProductId>
+                            <ProductColor color="Yellow"></ProductColor>
+                            <ProductSize><b>Size</b>: M</ProductSize>
+                        </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                         <ProductAmountContainer>
+                            <Add />
+                            <ProductAmount>1</ProductAmount>
+                            <Remove />
+                         </ProductAmountContainer>
+                     <ProductPrice>
+                        $ 15
+                    </ProductPrice>
+                    </PriceDetail>
+                 </Product>
                </Info>
                <Summary>
-                  Summary
+                  <SummaryTitle>Order</SummaryTitle>
+                  <SummaryItem>
+                    <SummaryItemText>Subtotal</SummaryItemText>
+                    <SummaryItemPrice>$ 35</SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem>
+                    <SummaryItemText>Estimated Shipping</SummaryItemText>
+                    <SummaryItemPrice>$ 2.98</SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem>
+                    <SummaryItemText>Discount</SummaryItemText>
+                    <SummaryItemPrice>$ 2</SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem type="total">
+                    <SummaryItemText>Total</SummaryItemText>
+                    <SummaryItemPrice>$ 30.02</SummaryItemPrice>
+                  </SummaryItem>
+                  <Button>Checkout Now</Button>
                </Summary>
-            </Bottom>
+             </Bottom>
           </Wrapper>
         <Footer />
     </Container>
