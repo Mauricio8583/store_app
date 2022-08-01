@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { Cart } from './pages/Cart';
 import Home from './pages/Home';
 import { Login } from './pages/Login';
@@ -7,9 +8,27 @@ import { ProductList } from './pages/ProductList';
 import { Register } from './pages/Register';
 
 export default function App() {
+
   return (
+
     <div>
-        <Home />
+        <Router>
+          <Routes>
+          <Route path='/' element={<Home />} />
+
+          <Route path='/login' element={<Login />} />
+
+          <Route path='/register' element={<Register />} />
+
+          <Route path='/product' element={<Product />} />
+
+          <Route path='/list' element={<ProductList />} />
+
+          <Route path='/cart' element={<Cart />} />
+                    
+          </Routes>
+          
+        </Router>
     </div>
   )
 }
