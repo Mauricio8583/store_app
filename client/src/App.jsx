@@ -20,9 +20,9 @@ export default function App() {
 
           <Route path='/register' element={<Register />} />
 
-          <Route path='/product' element={<Product />} />
+          <Route path='/product/:id' element={<Product />} />
 
-          <Route path='/list' element={<ProductList />} />
+          <Route path='/list/:category' element={<ProductList />} />
 
           <Route path='/cart' element={<Cart />} />
                     

@@ -27,21 +27,21 @@ export const categories = [
         id: 1,
         img: "https://lzd-img-global.slatic.net/g/p/d836e36abc3ae2a4597bd380f24a658e.jpg_720x720q80.jpg_.webp",
         title: "Blue Shirt",
-        cat: "men"
+        cat: "Shirts"
         
     },
     {
         id: 2,
         img: "https://static05.jockey.in/uploads/dealimages/6509/zoomimages/shanghai-red-sport-t-shirt-2714-15.jpg",
         title: "Red T-shirt",
-        cat: "women"
+        cat: "Ties"
         
     },
     {
         id: 3,
         img: "https://blacktie.com.br/wp-content/uploads/2020/11/smoking1.png",
         title: "Black Tie",
-        cat: "men"
+        cat: "Perfumes"
         
     }
 ]

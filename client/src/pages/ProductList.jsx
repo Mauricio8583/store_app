@@ -56,6 +56,7 @@ export const ProductList = () => {
    const [filter, setFilter] = useState({});
    const [sort, setSort] = useState("newest");
 
+   
    const handleFilters = (e) => {
        const value = e.target.value;
        setFilter({
@@ -64,31 +65,31 @@ export const ProductList = () => {
        })
    }
 
-   
+
 
   return (
     <Container>
         <Annoucement />
         <Navbar />
-        <Title>Dresses</Title>
+        <Title>{cat}</Title>
         <FilterContainer>
             <Filter>
                 <FilterText>Filter Products:</FilterText>
                 <Select name='color' onChange={handleFilters}>
                     <Option disabled>Color</Option>
-                    <Option>Red</Option>
-                    <Option>Blue</Option>
-                    <Option>White</Option>
-                    <Option>Black</Option>
-                    <Option>Green</Option>
-                    <Option>Yellow</Option>
+                    <Option>red</Option>
+                    <Option>blue</Option>
+                    <Option>white</Option>
+                    <Option>black</Option>
+                    <Option>green</Option>
+                    <Option>yellow</Option>
                 </Select>
                 <Select name='size' onChange={handleFilters}>
                     <Option disabled>Size</Option>
-                    <Option>Small</Option>
-                    <Option>Medium</Option>
-                    <Option>Large</Option>
-                    <Option>Kids</Option>
+                    <Option>S</Option>
+                    <Option>M</Option>
+                    <Option>L</Option>
+                    <Option>G</Option>
                 </Select>
             </Filter>
             <Filter>
