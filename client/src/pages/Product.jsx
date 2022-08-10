@@ -1,11 +1,14 @@
 import { Add, Remove } from '@material-ui/icons'
 import React from 'react'
+import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Annoucement } from '../components/Annoucement'
 import { Footer } from '../components/Footer'
 import { Navbar } from '../components/Navbar'
 import { Newsletter } from '../components/Newsletter'
 import { mobile } from '../responsive'
+import { publicRequest } from '../request'
 
 const Container = styled.div`
 
@@ -79,7 +82,7 @@ const FilterColor = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: ${props => props.bg};
+    background-color: ${props => props.color};
     margin: 0px 5px;
     cursor: pointer;
 
@@ -137,25 +140,47 @@ const Button = styled.button`
 `
 
 export const Product = () => {
+
+    const location = useLocation();
+    const id = location.pathname.split("/")[2];
+    
+    const [product, setProduct] = useState({});
+ 
+    useEffect(() => {
+     
+     const getProduct = async ()=> {
+       try{
+          const res = await publicRequest.get("/products/find/"+id);
+          setProduct(res.data);
+ 
+       }catch(err){
+         console.log(err)
+       }
+       
+     }
+     getProduct();
+ 
+    }, [id])
+
   return (
      <Container>
         <Annoucement />
         <Navbar />
         <Wrapper>
           <ImgContainer>
-            <Image src='https://lzd-img-global.slatic.net/g/p/d836e36abc3ae2a4597bd380f24a658e.jpg_720x720q80.jpg_.webp' />
+            <Image src={product.img} />
           </ImgContainer>
           <InfoContainer>
-             <Title>Title</Title>
-             <Desc>Simple Description</Desc>
-             <Price>$ 20</Price>
+             <Title>{product.title}</Title>
+             <Desc>{product.desc}</Desc>
+             <Price>$ {product.price}</Price>
           </InfoContainer>
           <FilterContainer>
             <Filter>
                 <FilterTitle>Color</FilterTitle>
-                <FilterColor bg="black"></FilterColor>
-                <FilterColor bg="darkblue"></FilterColor>
-                <FilterColor bg="lightgreen"></FilterColor>
+                 {product.color?.map((c) => (
+                    <FilterColor color={c} key={c} />
+                 ))}
             </Filter>
             <Filter>
                 <FilterTitle>Size</FilterTitle>
