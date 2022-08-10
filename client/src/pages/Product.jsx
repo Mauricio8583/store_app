@@ -9,6 +9,8 @@ import { Navbar } from '../components/Navbar'
 import { Newsletter } from '../components/Newsletter'
 import { mobile } from '../responsive'
 import { publicRequest } from '../request'
+import { addProduct } from '../redux/cartRedux'
+import { useDispatch } from 'react-redux'
 
 const Container = styled.div`
 
@@ -145,6 +147,25 @@ export const Product = () => {
     const id = location.pathname.split("/")[2];
     
     const [product, setProduct] = useState({});
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState("");
+    const [size, setSize] = useState("");
+    
+    const dispatch = useDispatch();
+
+    const handleQuantity = (type) => {
+        if(type==="rem" && quantity !== 1){
+            setQuantity(quantity - 1)           
+        }
+        else if(type==="add"){
+            setQuantity(quantity + 1)
+        }
+        
+    }
+
+    const handleClick = () => {
+        dispatch(addProduct({product, quantity}))
+    }
  
     useEffect(() => {
      
@@ -179,28 +200,26 @@ export const Product = () => {
             <Filter>
                 <FilterTitle>Color</FilterTitle>
                  {product.color?.map((c) => (
-                    <FilterColor color={c} key={c} />
+                    <FilterColor color={c} key={c} onClick={() => setColor(c)} />
                  ))}
             </Filter>
             <Filter>
                 <FilterTitle>Size</FilterTitle>
-                <FilterSize>
-                    <FilterSizeOption>XS</FilterSizeOption>
-                    <FilterSizeOption>S</FilterSizeOption>
-                    <FilterSizeOption>M</FilterSizeOption>
-                    <FilterSizeOption>L</FilterSizeOption>
-                    <FilterSizeOption>XL</FilterSizeOption>
+                <FilterSize onChange={(e) => setSize(e.target.value)}>
+                    {product.size?.map((s) => (
+                        <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                    ))}
                 </FilterSize>
             </Filter>
 
           </FilterContainer>
           <AddContainer>
              <AmountContainer>
-                <Remove />
-                <Amount>1</Amount>
-                <Add />
+                <Remove onClick={() => handleQuantity("rem")} />
+                <Amount>{quantity}</Amount>
+                <Add onClick={() => handleQuantity("add")} />
              </AmountContainer>
-             <Button>Add to cart</Button>
+             <Button onClick={handleClick}>Add to cart</Button>
           </AddContainer>
         </Wrapper>
         <Newsletter />
