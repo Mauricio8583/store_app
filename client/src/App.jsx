@@ -7,6 +7,7 @@ import { Product } from './pages/Product';
 import { ProductList } from './pages/ProductList';
 import { Register } from './pages/Register';
 
+
 export default function App() {
 
   return (
@@ -25,7 +26,8 @@ export default function App() {
           <Route path='/list/:category' element={<ProductList />} />
 
           <Route path='/cart' element={<Cart />} />
-                    
+
+                              
           </Routes>
           
         </Router>

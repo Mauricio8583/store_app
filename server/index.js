@@ -7,6 +7,7 @@ const auth = require("./routes/auth");
 const product = require("./routes/product");
 const orders = require("./routes/order");
 const cart = require("./routes/cart");
+const stripe = require("./routes/stripe");
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/auth", auth);
 app.use("/api/products", product);
 app.use("/api/orders", orders);
 app.use("/api/carts", cart);
+app.use("/api/checkout", stripe);
 
 app.listen(port, () => {
     console.log(`Listining in ${port}`)
