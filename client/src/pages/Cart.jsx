@@ -205,7 +205,7 @@ const Button = styled.button`
 export const Cart = () => {
    const cart = useSelector(state => state.cart);
    const [stripeToken, setStripeToken] = useState(null);
-   const history = useNavigate();
+   const navigate = useNavigate();
 
    const onToken = (token) => {
     setStripeToken(token)
@@ -219,7 +219,7 @@ export const Cart = () => {
                 amount: cart.total * 100
                 
             });
-            history.push("/success", {data: res.data})
+            navigate("/success", {state:{stripeData: res.data, products: cart}})
         }catch(err){
             
         }
@@ -228,7 +228,7 @@ export const Cart = () => {
         request()
     }
 
-   }, [stripeToken, cart.total, history])
+   }, [stripeToken, cart.total, navigate])
 
   return (
     <Container>

@@ -6,6 +6,7 @@ import { Login } from './pages/Login';
 import { Product } from './pages/Product';
 import { ProductList } from './pages/ProductList';
 import { Register } from './pages/Register';
+import Success from './pages/Success';
 
 
 export default function App() {
@@ -26,6 +27,8 @@ export default function App() {
           <Route path='/list/:category' element={<ProductList />} />
 
           <Route path='/cart' element={<Cart />} />
+
+          <Route path='/success' element={<Success />} />
 
                               
           </Routes>
