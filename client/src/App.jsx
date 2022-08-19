@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import { Cart } from './pages/Cart';
 import Home from './pages/Home';
 import { Login } from './pages/Login';
@@ -10,16 +11,17 @@ import Success from './pages/Success';
 
 
 export default function App() {
+     const user = useSelector((state) => state.user.currentUser);
 
   return (
 
     <div>
         <Router>
           <Routes>
-          <Route path='/' element={<Home />} />
+          <Route exact path='/' element={<Home />} />
 
-          <Route path='/login' element={<Login />} />
-
+          <Route path='/login' element={user ? <Navigate to='/'/> : <Login />}/>
+            
           <Route path='/register' element={<Register />} />
 
           <Route path='/product/:id' element={<Product />} />
