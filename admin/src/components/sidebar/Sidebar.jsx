@@ -1,6 +1,7 @@
 import { Feedback, LineStyle, Mail, Message, MonetizationOn, PermIdentity, Report, Storefront, Timeline, TrendingUp, Work} from '@material-ui/icons'
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
    flex: 1;
@@ -56,8 +57,12 @@ export const Sidebar = () => {
             <Menu>
                 <SidebarTitle>Quick Menu</SidebarTitle>
                 <SidebarList>
-                    <SidebarListItem><PermIdentity />Users</SidebarListItem>
-                    <SidebarListItem><Storefront />Products</SidebarListItem>
+                    <Link to="/users" style={{textDecoration: 'none', color: 'inherit'}}>
+                      <SidebarListItem><PermIdentity />Users</SidebarListItem>
+                    </Link>
+                    <Link to="/products" style={{textDecoration: 'none', color: 'inherit'}}>
+                       <SidebarListItem><Storefront />Products</SidebarListItem>
+                    </Link>
                     <SidebarListItem><MonetizationOn />Transitions</SidebarListItem>
                     <SidebarListItem><TrendingUp />Sales</SidebarListItem>
                 </SidebarList>

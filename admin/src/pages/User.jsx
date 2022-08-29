@@ -1,6 +1,7 @@
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, Phone, Publish } from '@material-ui/icons'
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     flex: 4;
@@ -162,7 +163,9 @@ export const User = () => {
     <Container>
         <UserTitleContainer>
             <UserTitle>Edit User</UserTitle>
-            <UserAddButton>Create</UserAddButton>
+            <Link to="/newUser">
+               <UserAddButton>Create</UserAddButton>
+            </Link>            
         </UserTitleContainer>
         <UserContainer>
             <UserShow>
