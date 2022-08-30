@@ -49,7 +49,9 @@ export const Sidebar = () => {
             <Menu>
                 <SidebarTitle>Dashboard</SidebarTitle>
                 <SidebarList>
-                    <SidebarListItem><LineStyle />Home</SidebarListItem>
+                    <Link to="/" style={{textDecoration: 'none', color: 'inherit'}} >
+                      <SidebarListItem><LineStyle />Home</SidebarListItem>
+                    </Link>
                     <SidebarListItem><Timeline />Analytics</SidebarListItem>
                     <SidebarListItem><TrendingUp />Sales</SidebarListItem>
                 </SidebarList>

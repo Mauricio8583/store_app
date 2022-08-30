@@ -62,6 +62,26 @@ export const userData = [
     
   ];
 
+  export const productData = [
+    
+    {
+        name: 'Oct',
+        "Sales": 6000,
+        
+    },
+    {
+        name: 'Nov',
+        "Sales": 5000,
+        
+    },
+    {
+        name: 'Dez',
+        "Sales": 7000,
+        
+    },
+    
+  ];
+
   export const userRows = [
     { id: 1, username: 'Jon Snow', avatar: "https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000", email: "Jon@email.com", status: "Active", transition: "$120" },
     { id: 2, username: 'Jon Snow', avatar: "https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000", email: "Jon@email.com", status: "Active", transition: "$120" },
