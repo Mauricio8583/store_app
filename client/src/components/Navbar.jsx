@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { Search, ShoppingBasket} from '@material-ui/icons'
 import { Badge } from '@material-ui/core'
 import { mobile } from '../responsive'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { logOut } from '../redux/userRedux'
 
 const Container = styled.div`
      height: 75px;
@@ -53,6 +54,8 @@ const Input = styled.input`
 const Logo = styled.h1`
     font-weight: bold;
     ${mobile({ fontSize: "24px" })}
+    color: black;
+    text-decoration: none;
 
 `
 
@@ -80,6 +83,13 @@ const Right = styled.div`
 
 export const Navbar = () => {
    const quantity = useSelector(state => state.cart.quantity)
+   const dispatch = useDispatch();
+   const navigate = useNavigate() ;  
+
+   const handleClick = () => {
+     dispatch(logOut())
+     navigate("/login")
+   }
 
    return (
     <Container>
@@ -95,12 +105,19 @@ export const Navbar = () => {
           </Left>
 
           <Center>
+             <Link to='/'>  
              <Logo>Store App</Logo>
+             </Link>
           </Center>
 
           <Right>
+             <Link to='/register'> 
              <ItemMenu>Register</ItemMenu>
+             </Link>
+             <ItemMenu onClick={handleClick}>Logout</ItemMenu> 
+             <Link to='/login'>
              <ItemMenu>Sign In</ItemMenu>
+             </Link>
              <Link to="/cart">
              <ItemMenu>
                <Badge badgeContent={quantity} color="primary">

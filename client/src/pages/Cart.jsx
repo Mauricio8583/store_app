@@ -11,6 +11,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { userRequest } from '../request'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { removeProduct } from '../redux/cartRedux'
 
 
 const key = process.env.REACT_APP_STRIPE
@@ -202,10 +204,19 @@ const Button = styled.button`
 
 `
 
+const RemoveButton = styled.button`
+    padding: 10px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+`
+
 export const Cart = () => {
    const cart = useSelector(state => state.cart);
    const [stripeToken, setStripeToken] = useState(null);
    const navigate = useNavigate();
+   const dispatch = useDispatch()
 
    const onToken = (token) => {
     setStripeToken(token)
@@ -230,6 +241,10 @@ export const Cart = () => {
 
    }, [stripeToken, cart.total, navigate])
 
+   const handleRemove = () => {
+    dispatch(removeProduct())
+   }
+
   return (
     <Container>
         <Annoucement />
@@ -240,7 +255,7 @@ export const Cart = () => {
                <TopButton>Continue</TopButton>
                <TopTexts>
                    <TopText>Shopping cart (2)</TopText>
-                   <TopText>Your Whishlist (0)</TopText>
+                   <TopText><RemoveButton onClick={handleRemove}>Remove Item</RemoveButton></TopText>
                </TopTexts>
                <TopButton type='filled' >Checkout Now</TopButton>
             </Top>
