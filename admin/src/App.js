@@ -5,7 +5,8 @@ import { Home } from './pages/Home';
 import {
   BrowserRouter as Router,
   Route,
-  Routes  
+  Routes
+    
   
 } from 'react-router-dom'
 import { UserList } from './pages/UserList';
@@ -14,14 +15,20 @@ import { NewUser } from './pages/NewUser';
 import { ProductList } from './pages/ProductList';
 import { Product } from './pages/Product';
 import { NewProduct } from './pages/NewProduct';
+import { Login } from './pages/Login';
 
 function App() {
+
   return (
+
     <Router>
-    <div>
-      <Topbar />
+          
+
+       <Topbar />
       <div className='container'>
         <Sidebar />
+        
+        
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/users' element={<UserList />} />
@@ -30,10 +37,11 @@ function App() {
           <Route path='/products' element={<ProductList />} />
           <Route path='/product/:productId' element={<Product />} />
           <Route path='/newProduct' element={<NewProduct />} />
-        </Routes>
+          <Route path='/login' element={<Login />} />        
         
-      </div>
-    </div>
+          </Routes> 
+        </div>
+           
     </Router>
   );
 }
