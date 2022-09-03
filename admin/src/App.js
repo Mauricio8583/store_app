@@ -19,29 +19,34 @@ import { Login } from './pages/Login';
 
 function App() {
 
+  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin;
+
   return (
 
     <Router>
           
-
-       <Topbar />
+   
+     
+      { admin &&<Topbar />}
       <div className='container'>
-        <Sidebar />
         
+        { admin && <Sidebar /> }
         
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/users' element={<UserList />} />
-          <Route path='/user/:userId' element={<User />} />
-          <Route path='/newUser' element={<NewUser />} />
-          <Route path='/products' element={<ProductList />} />
-          <Route path='/product/:productId' element={<Product />} />
-          <Route path='/newProduct' element={<NewProduct />} />
+          <Route path='/' element={admin ? <Home /> : <Login />} />
+          <Route path='/users' element={ admin && <UserList />} />
+          <Route path='/user/:userId' element={ admin && <User />} />
+          <Route path='/newUser' element={ admin && <NewUser />} />
+          <Route path='/products' element={admin && <ProductList />} />
+          <Route path='/product/:productId' element={admin && <Product />} />
+          <Route path='/newProduct' element={admin && <NewProduct />} />
           <Route path='/login' element={<Login />} />        
+                  
         
           </Routes> 
         </div>
-           
+        
+    
     </Router>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Language, NotificationsNone, Settings } from '@material-ui/icons'
+import { useDispatch } from 'react-redux'
+import { logOut } from '../../redux/userRedux'
 
 const Container = styled.div`
     width: 100%;
@@ -63,7 +65,23 @@ const AvatarImg = styled.img`
    cursor: pointer;
 `
 
+const LogoutButton = styled.button`
+   padding: 10px;
+   background-color: red;
+   border: none;
+   color: white;
+   cursor: pointer;
+
+`
+
 export const Topbar = () => {
+
+    const dispatch = useDispatch();
+
+   const handleClick = () => {
+      dispatch(logOut())
+   }
+
   return (
     <Container>
         <Wrapper>
@@ -71,6 +89,7 @@ export const Topbar = () => {
                 <Logo>Admin</Logo>
             </TopLeft>
             <TopRight>
+                <LogoutButton  onClick={handleClick} >LogOut</LogoutButton>
                 <Icons>
                     <NotificationsNone />
                     <IconBadge>2</IconBadge>

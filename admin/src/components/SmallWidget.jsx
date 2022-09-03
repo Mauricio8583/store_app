@@ -1,6 +1,9 @@
 import { Visibility } from '@material-ui/icons'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { userRequest } from '../request'
 
 const Container = styled.div`
     flex: 1;
@@ -60,6 +63,17 @@ const SmallWidgetButton = styled.button`
 `
 
 export const SmallWidget = () => {
+
+    const [users, setUsers] = useState([]);
+    
+    useEffect(() => {
+        const getUsers = async () => {
+            const res = await userRequest.get("/users/?new=true");
+            setUsers(res.data)
+        }
+        getUsers()
+    }, [])
+
   return (
     <Container>
         <SmallWidgetTitle>New Join Members</SmallWidgetTitle>
