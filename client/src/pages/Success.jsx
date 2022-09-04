@@ -13,7 +13,7 @@ function Success() {
    
    const currentUser = useSelector((state) => state.user.currentUser);
    const [orderId, setOrderId] = useState(null);
-
+   
    useEffect(() => {
     const createOrder = async () => {
       try{
@@ -33,7 +33,7 @@ function Success() {
       }
     }
     data && createOrder();
-   }, {cart, data, currentUser})
+   }, [cart, data, currentUser])
 
   return (
     <div style={{

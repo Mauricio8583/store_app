@@ -74,61 +74,31 @@ export const SmallWidget = () => {
         getUsers()
     }, [])
 
+    
+
   return (
     <Container>
         <SmallWidgetTitle>New Join Members</SmallWidgetTitle>
-        <SmallWidgetList>
-            <SmallWidgetListItem>
+        
+           
+            { users.map((user) => (
+                <SmallWidgetList>
+                <SmallWidgetListItem key={user._id}>
                 <SmallWidgetImg src='https://cdn-icons-png.flaticon.com/512/147/147144.png'/>
                 <SmallWidgetUser>
-                    <SmallWidgetUsername>Joan Kerer</SmallWidgetUsername>
-                    <SmallWidgetUserJob>Software Engeneere</SmallWidgetUserJob>
+                    <SmallWidgetUsername>{user.username}</SmallWidgetUsername>
+                    
                 </SmallWidgetUser>
                 <SmallWidgetButton>
                     <Visibility />Display
                 </SmallWidgetButton>
             </SmallWidgetListItem>
-            <SmallWidgetListItem>
-                <SmallWidgetImg src='https://cdn-icons-png.flaticon.com/512/147/147144.png'/>
-                <SmallWidgetUser>
-                    <SmallWidgetUsername>Joan Kerer</SmallWidgetUsername>
-                    <SmallWidgetUserJob>Software Engeneere</SmallWidgetUserJob>
-                </SmallWidgetUser>
-                <SmallWidgetButton>
-                    <Visibility />Display
-                </SmallWidgetButton>
-            </SmallWidgetListItem>
-            <SmallWidgetListItem>
-                <SmallWidgetImg src='https://cdn-icons-png.flaticon.com/512/147/147144.png'/>
-                <SmallWidgetUser>
-                    <SmallWidgetUsername>Joan Kerer</SmallWidgetUsername>
-                    <SmallWidgetUserJob>Software Engeneere</SmallWidgetUserJob>
-                </SmallWidgetUser>
-                <SmallWidgetButton>
-                    <Visibility />Display
-                </SmallWidgetButton>
-            </SmallWidgetListItem>
-            <SmallWidgetListItem>
-                <SmallWidgetImg src='https://cdn-icons-png.flaticon.com/512/147/147144.png'/>
-                <SmallWidgetUser>
-                    <SmallWidgetUsername>Joan Kerer</SmallWidgetUsername>
-                    <SmallWidgetUserJob>Software Engeneere</SmallWidgetUserJob>
-                </SmallWidgetUser>
-                <SmallWidgetButton>
-                    <Visibility />Display
-                </SmallWidgetButton>
-            </SmallWidgetListItem>
-            <SmallWidgetListItem>
-                <SmallWidgetImg src='https://cdn-icons-png.flaticon.com/512/147/147144.png'/>
-                <SmallWidgetUser>
-                    <SmallWidgetUsername>Joan Kerer</SmallWidgetUsername>
-                    <SmallWidgetUserJob>Software Engeneere</SmallWidgetUserJob>
-                </SmallWidgetUser>
-                <SmallWidgetButton>
-                    <Visibility />Display
-                </SmallWidgetButton>
-            </SmallWidgetListItem>
-        </SmallWidgetList>
+            
+            
+            </SmallWidgetList>
+            ))}
+        
+        
     </Container>
   )
 }

@@ -1,5 +1,9 @@
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { userRequest } from '../../../admin/src/request'
+import { format } from 'timeago.js'
 
 const Container = styled.div`
     flex: 2;
@@ -59,14 +63,26 @@ const LargeWidgetButton = styled.button`
     padding: 5px 7px;
     border: none;
     border-radius: 10px;
-    background-color: ${(props) => props.value === "Approved" ? "lightgreen" : props.value === "Decline" ? "#fff0f1" : props.value === "Pending" ? "lightyellow" : "lightgray" };
-    color: ${(props) => props.value === "Approved" ? "#3bb077" : props.value === "Decline" ? "#d95087" : props.value === "Pending" ? "#2a7ade" : "black"};
+    background-color: ${(props) => props.value === "Approved" ? "lightgreen" : props.value === "Decline" ? "#fff0f1" : props.value === "pending" ? "lightyellow" : "lightgray" };
+    color: ${(props) => props.value === "Approved" ? "#3bb077" : props.value === "Decline" ? "#d95087" : props.value === "pending" ? "#2a7ade" : "black"};
     cursor: pointer;
     
 `
 
 
 export const LargeWidget = () => {
+
+     const [orders, setOrders] = useState([]);
+
+     useEffect(() => {
+        const getOrders = async () => {
+          const res = await userRequest.get("/orders");
+          setOrders(res.data)
+        }
+        getOrders()
+     }, [])
+
+     
 
   const Button = ({value}) => {
     return <LargeWidgetButton value={value}>{value}</LargeWidgetButton>
@@ -82,42 +98,17 @@ export const LargeWidget = () => {
               <LargeWidgetTh>Amount</LargeWidgetTh>
               <LargeWidgetTh>Status</LargeWidgetTh>
           </LargeWidgetTr>
+          { orders.map((order) => (
           <LargeWidgetTr>
             <LargeWidgetUser>
-              <LargeWidgetImg src='https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000' />
-              <LargeWidgetName>Matthew Davis</LargeWidgetName>
+              
+              <LargeWidgetName>{order.userID}</LargeWidgetName>
             </LargeWidgetUser>
-            <LargeWidgetDate>Aug 25 2022</LargeWidgetDate>
-            <LargeWidgetAmount>$ 35</LargeWidgetAmount>
-            <LargeWidgetStatus><Button value="Approved"></Button></LargeWidgetStatus>
+            <LargeWidgetDate>{format(order.createdAt)}</LargeWidgetDate>
+            <LargeWidgetAmount>$ {order.amount}</LargeWidgetAmount>
+            <LargeWidgetStatus><Button value={order.status}></Button></LargeWidgetStatus>
           </LargeWidgetTr>
-          <LargeWidgetTr>
-            <LargeWidgetUser>
-              <LargeWidgetImg src='https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000' />
-              <LargeWidgetName>Matthew Davis</LargeWidgetName>
-            </LargeWidgetUser>
-            <LargeWidgetDate>Aug 25 2022</LargeWidgetDate>
-            <LargeWidgetAmount>$ 35</LargeWidgetAmount>
-            <LargeWidgetStatus><Button value="Decline"></Button></LargeWidgetStatus>
-          </LargeWidgetTr>
-          <LargeWidgetTr>
-            <LargeWidgetUser>
-              <LargeWidgetImg src='https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000' />
-              <LargeWidgetName>Matthew Davis</LargeWidgetName>
-            </LargeWidgetUser>
-            <LargeWidgetDate>Aug 25 2022</LargeWidgetDate>
-            <LargeWidgetAmount>$ 35</LargeWidgetAmount>
-            <LargeWidgetStatus><Button value="Pending"></Button></LargeWidgetStatus>
-          </LargeWidgetTr>
-          <LargeWidgetTr>
-            <LargeWidgetUser>
-              <LargeWidgetImg src='https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000' />
-              <LargeWidgetName>Matthew Davis</LargeWidgetName>
-            </LargeWidgetUser>
-            <LargeWidgetDate>Aug 25 2022</LargeWidgetDate>
-            <LargeWidgetAmount>$ 35</LargeWidgetAmount>
-            <LargeWidgetStatus><Button value="Approved"></Button></LargeWidgetStatus>
-          </LargeWidgetTr>
+          ))}
         </LargeWidgetTable>
     </Container>
   )

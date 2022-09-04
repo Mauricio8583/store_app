@@ -5,7 +5,7 @@ require("dotenv").config();
 const Order = require("../models/Order");
 
 
-router.post("/", verifyToken , async (req, res) => {
+router.post("/", async (req, res) => {
     
     const newOrder = new Order(req.body);
 
@@ -54,7 +54,7 @@ router.get("/find/:id", verifyAuthorization ,async (req, res) => {
     }
 })
 
-router.get("/", verifyAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
     try{
 
         const orders = await Order.find();

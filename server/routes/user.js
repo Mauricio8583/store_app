@@ -40,7 +40,7 @@ router.get("/find/:id", verifyAdmin, async (req, res) => {
     }
 })
 
-router.get("/", verifyAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
 
     const query = req.query.new;
 
