@@ -65,7 +65,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-router.get("/income", verifyAdmin, async (req, res) => {
+router.get("/income", async (req, res) => {
     const date = new Date();
     const pastMonth = new Date(date.setMonth(date.getMonth() - 1));
     const previousMonth = new Date(new Date().setMonth(pastMonth.getMonth() - 1));

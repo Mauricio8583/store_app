@@ -1,6 +1,9 @@
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { userRequest } from '../request'
 
 const Container = styled.div`
    width: 100%;
@@ -45,6 +48,19 @@ const FeaturedSub = styled.span`
 `
 
 export const FeaturedInfo = () => {
+
+   const [income, setIncome] = useState([]);
+
+   useEffect(() => {
+      const getIncome = async () => {
+         const res = await userRequest.get("/orders/income");
+         setIncome(res.data)
+      }
+      getIncome()
+   }, []);
+
+   
+
   return (
     <Container>
         <FeaturedItem>

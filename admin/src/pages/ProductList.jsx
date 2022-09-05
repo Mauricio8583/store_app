@@ -2,8 +2,10 @@ import { DataGrid } from '@material-ui/data-grid'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { DeleteOutline } from '@material-ui/icons'
-import { productRows } from '../dataTest'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { deleteProducts, getProducts } from '../redux/apiCalls'
 
 const Container = styled.div`
     flex: 4;
@@ -34,28 +36,30 @@ const ProductListEdit = styled.button`
 
 export const ProductList = () => {
 
-   const [data, setData] = useState(productRows);
+   
+   const dispatch = useDispatch();
+   const products = useSelector((state) => state.product.products)
+
+   useEffect(() => {
+      getProducts(dispatch)
+   }, [dispatch])
 
    const handleDelete = (id) => {
-     setData(data.filter((item) => item.id !== id))
+     deleteProducts(id, dispatch)
    }
 
    const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: '_id', headerName: 'ID', width: 220 },
     { field: 'product', headerName: 'Product', width: 200, renderCell: (params) => {
         return (
             <ProductListUser>
                 <ProductListImg src={params.row.img} />
-                {params.row.productName}
+                {params.row.title}
             </ProductListUser>
         )
     } },
-    { field: 'stock', headerName: 'Stock', width: 200 },
-    {
-      field: 'status',
-      headerName: 'Status',
-      width: 120
-    },
+    { field: 'inStock', headerName: 'Stock', width: 200 },
+    
     {
       field: 'price',
       headerName: 'Price',
@@ -69,10 +73,10 @@ export const ProductList = () => {
         renderCell: (params) => {
             return (
                 <>
-                <Link to={"/product/" +params.row.id}>
+                <Link to={"/product/" +params.row._id}>
                 <ProductListEdit>Edit</ProductListEdit>
                 </Link>
-                <DeleteOutline style={{ color: "red", cursor: "pointer"}} onClick={()=>handleDelete(params.row.id)} />
+                <DeleteOutline style={{ color: "red", cursor: "pointer"}} onClick={()=>handleDelete(params.row._id)} />
                 </>
             )
         }
@@ -82,9 +86,10 @@ export const ProductList = () => {
   return (
     <Container>
         <DataGrid 
-        rows={data}
+        rows={products}
         disableSelectionOnClick
         columns={columns}
+        getRowId={(row)=>row._id}
         pageSize={8}
         checkboxSelection />
     </Container>

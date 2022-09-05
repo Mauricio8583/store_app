@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Chart } from '../components/Chart'
 import { productData } from '../dataTest'
 import { Publish } from '@material-ui/icons'
+import { useSelector } from 'react-redux'
 
 const Container = styled.div`
     flex: 4;
@@ -130,6 +131,12 @@ const ProductButton = styled.button`
 `
 
 export const Product = () => {
+
+   const location = useLocation();
+   const productID = location.pathname.split("/")[2];
+   
+   const product = useSelector(state=> state.product.products.find(product => product._id === productID));
+
   return (
     <Container>
         <ProductTitleContainer>
@@ -144,25 +151,22 @@ export const Product = () => {
             </ProductTopLeft> 
             <ProductTopRight>
             <ProductInfoTop>
-                <ProductInfoImg src='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone12purple-202109_FMT_WHH?wid=506&hei=472&fmt=p-jpg&qlt=95&.v=1646335268247' />
-                <ProductInfoName>Apple Phone</ProductInfoName>                
+                <ProductInfoImg src={product.img} />
+                <ProductInfoName>{product.title}</ProductInfoName>                
             </ProductInfoTop>
             <ProductInfoBottom>
                 <ProductInfoItem>
                     <ProductInfoKey>id:</ProductInfoKey>
-                    <ProductInfoValue>123</ProductInfoValue>
+                    <ProductInfoValue>{product._id}</ProductInfoValue>
                 </ProductInfoItem>
                 <ProductInfoItem>
                     <ProductInfoKey>sales:</ProductInfoKey>
                     <ProductInfoValue>5000</ProductInfoValue>
                 </ProductInfoItem>
-                <ProductInfoItem>
-                    <ProductInfoKey>active:</ProductInfoKey>
-                    <ProductInfoValue>yes</ProductInfoValue>
-                </ProductInfoItem>
+                
                 <ProductInfoItem>
                     <ProductInfoKey>in stock:</ProductInfoKey>
-                    <ProductInfoValue>no</ProductInfoValue>
+                    <ProductInfoValue>{product.inStock}</ProductInfoValue>
                 </ProductInfoItem>
             </ProductInfoBottom>
             </ProductTopRight>           
@@ -171,21 +175,21 @@ export const Product = () => {
             <ProductForm>
                 <ProductFormLeft>
                     <label style={{marginBottom: '10px', color:'gray'}}>Product Name</label>
-                    <input type="text" placeholder='Apple Phones' style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
+                    <input type="text" placeholder={product._id} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
+                    <label>Product Description</label>
+                    <input type="text" placeholder={product.desc} />
+                    <label>Price</label>
+                    <input type="text" placeholder={product.price} />
                     <label style={{marginBottom: '10px', color:'gray'}}>In Stock</label>
                     <select name='inStock' id='InStock'>
-                        <option value='yes'>Yes</option>
-                        <option value='no'>No</option>
+                        <option value='true'>Yes</option>
+                        <option value='false'>No</option>
                     </select> 
-                    <label style={{marginBottom: '10px', color:'gray'}}>Active</label>
-                    <select name='active' id='active'>
-                        <option value='yes'>Yes</option>
-                        <option value='no'>No</option>
-                    </select> 
+                    
                 </ProductFormLeft>
                 <ProductFormRight>
                     <ProductUpload>
-                        <ProductUploadImg src='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone12purple-202109_FMT_WHH?wid=506&hei=472&fmt=p-jpg&qlt=95&.v=1646335268247' />
+                        <ProductUploadImg src={product.img} />
                         <label htmlFor='file'>
                             <Publish />                            
                         </label>
