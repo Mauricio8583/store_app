@@ -5,13 +5,13 @@ require("dotenv").config();
 const Product = require("../models/Product");
 
 
-router.post("/", verifyAdmin , async (req, res) => {
+router.post("/", async (req, res) => {
     
     const newProduct = new Product(req.body);
 
     try{
-        await newProduct.save();
-        res.status(200).json("Product is available!!")
+        const product = await newProduct.save();
+        res.status(200).json(product)
 
     }catch(err){
         res.status(500).json(err)
@@ -20,7 +20,7 @@ router.post("/", verifyAdmin , async (req, res) => {
 
 
 
-router.put("/:id", verifyAdmin , async (req, res) => {
+router.put("/:id", async (req, res) => {
     
     try{
         const updatedProdutc = await Product.findByIdAndUpdate(req.params.id,{
