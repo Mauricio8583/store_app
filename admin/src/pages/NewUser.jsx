@@ -1,5 +1,8 @@
 import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { publicRequest } from '../request'
 
 const Container = styled.div`
     flex: 4;
@@ -55,10 +58,28 @@ const NewUserButton = styled.button`
     font-weight: 600;
     border-radius: 10px;
     margin-left: 30px;
+    margin-top: 10px;
     cursor: pointer;
 `
 
 export const NewUser = () => {
+
+    const [inputs, setInputs] = useState({});
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setInputs(prev => {
+            return {...prev, [e.target.name]: e.target.value}
+        })
+        
+    }
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        await publicRequest.post("/auth/register", inputs);
+        navigate("/")                
+    }
+
   return (
     <Container>
         <NewUserTitle>New User</NewUserTitle>
@@ -66,47 +87,18 @@ export const NewUser = () => {
         <NewUserForm>
             <NewUserItem>
                 <NewUserLabels>Username</NewUserLabels>
-                <NewUserInput type="text" placeholder='Jon'></NewUserInput> 
+                <NewUserInput type="text" placeholder='Jon' name='username' onChange={handleChange}></NewUserInput> 
             </NewUserItem>
-            <NewUserItem>
-                <NewUserLabels>Full Name</NewUserLabels>
-                <NewUserInput type="text" placeholder='Jon Smith'></NewUserInput> 
-            </NewUserItem>
+            
             <NewUserItem>
                 <NewUserLabels>E-mail</NewUserLabels>
-                <NewUserInput type="email" placeholder='jonsmith@email.com'></NewUserInput> 
+                <NewUserInput type="email" placeholder='jonsmith@email.com' name='email' onChange={handleChange}></NewUserInput> 
             </NewUserItem>
             <NewUserItem>
                 <NewUserLabels>Password</NewUserLabels>
-                <NewUserInput type="password" placeholder='password'></NewUserInput> 
+                <NewUserInput type="password" placeholder='password' name='password' onChange={handleChange}></NewUserInput> 
             </NewUserItem>
-            <NewUserItem>
-                <NewUserLabels>Phone</NewUserLabels>
-                <NewUserInput type="text" placeholder='+1 123 4567'></NewUserInput>
-            </NewUserItem>
-            <NewUserItem>
-                <NewUserLabels>Address</NewUserLabels>
-                <NewUserInput type="text" placeholder='New York USA'></NewUserInput> 
-            </NewUserItem>
-            <NewUserItem>
-              <NewUserLabels>Gender</NewUserLabels>
-                <NewUserGender>
-                  <input type="radio" name='gender' id='male' value='male' style={{marginTop: "15px"}}></input>
-                  <label htmlFor='male' style={{margin: "10px", fontSize: "14px", color: "#555" }}>Male</label>
-                  <input type="radio" name='gender' id='female' value='female' style={{marginTop: "15px"}}></input>
-                  <label htmlFor='female' style={{margin: "10px", fontSize: "14px", color: "#555" }}>Female</label>
-                  <input type="radio" name='gender' id='others' value='others' style={{marginTop: "15px"}}></input>
-                  <label htmlFor='others' style={{margin: "10px", fontSize: "14px", color: "#555" }}>Others</label>                  
-                </NewUserGender>  
-            </NewUserItem>
-            <NewUserItem>
-                 <NewUserLabels>Active</NewUserLabels>
-                <NewUserSelect name='active' id='active'>
-                    <option value='yes'>Yes</option>
-                    <option value='no'>No</option>
-                </NewUserSelect>
-            </NewUserItem>
-            <NewUserButton>Create</NewUserButton>
+            <NewUserButton onClick={handleClick}>Create</NewUserButton>
         </NewUserForm>
     </Container>
   )

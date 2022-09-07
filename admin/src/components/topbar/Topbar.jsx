@@ -78,7 +78,8 @@ export const Topbar = () => {
 
     const dispatch = useDispatch();
 
-   const handleClick = () => {
+   const handleClick = (e) => {
+      e.preventDefault()
       dispatch(logOut())
    }
 

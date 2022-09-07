@@ -159,7 +159,8 @@ const UserUpdateButton = styled.button`
 `
 
 export const User = () => {
-  return (
+
+   return (
     <Container>
         <UserTitleContainer>
             <UserTitle>Edit User</UserTitle>

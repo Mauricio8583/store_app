@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { publicRequest } from '../request'
 
 const Container = styled.div`
     width: 100vw;
@@ -56,19 +58,33 @@ const Button = styled.button`
 `
 
 export const Register = () => {
+
+   const [inputs, setInputs] = useState({});
+   const navigate = useNavigate();
+
+   const handleChange = (e) => {
+    setInputs(prev => {
+        return {...prev, [e.target.name]: e.target.value}
+    })
+   }
+
+   const handleClick = async (e) => {
+    e.preventDefault();
+    await publicRequest.post("/auth/register", inputs);
+    navigate("/login");
+
+   }
+
   return (
     <Container>
          <Wrapper>
             <Title>Create an Account</Title>
             <Form>
-                <Input placeholder='Name'></Input>
-                <Input placeholder='Last Name'></Input>
-                <Input placeholder='Username'></Input>
-                <Input placeholder='Email'></Input>
-                <Input placeholder='Password' type="password"></Input>
-                <Input placeholder='Confirm Password'></Input>
+                <Input placeholder='Username' name='username' onChange={handleChange}></Input>
+                <Input placeholder='Email' name='email' onChange={handleChange}></Input>
+                <Input placeholder='Password' type="password" name='password' onChange={handleChange}></Input>
                 <Agreement>By Creating an account, I consent to the processing of my personal data according with PRIVACY POLICY</Agreement>
-                <Button>Create</Button>
+                <Button onClick={handleClick} >Create</Button>
             </Form>
          </Wrapper>
     </Container>

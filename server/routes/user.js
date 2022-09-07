@@ -19,7 +19,7 @@ router.put("/:id", verifyAuthorization, async (req, res) => {
     }
 })
 
-router.delete("/:id", verifyAuthorization, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try{
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User Deleted")
@@ -29,7 +29,7 @@ router.delete("/:id", verifyAuthorization, async (req, res) => {
     }
 })
 
-router.get("/find/:id", verifyAdmin, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
     try{
         const user = await User.findById(req.params.id);
         const {password, ...others} = user._doc;

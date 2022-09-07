@@ -4,6 +4,8 @@ import { DataGrid } from '@material-ui/data-grid'
 import { DeleteOutline } from '@material-ui/icons'
 import { userRows } from '../dataTest'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { userRequest } from '../request'
 
 const Container = styled.div`
     flex: 4;
@@ -34,34 +36,35 @@ const UserListEdit = styled.button`
 
 export const UserList = () => {
 
-    const [data, setData] = useState(userRows);
+    const [users, setUsers] = useState([]);
 
-    const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id))
+    const handleDelete = async (id) => {
+        await userRequest.delete(`/users/${id}`);        
     }
 
+    useEffect(() => {
+         const getUsers = async () => {
+            const res = await userRequest.get("/users/");
+            setUsers(res.data);            
+         } 
+         getUsers()       
+    }, []);
+
+
+
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'user', headerName: 'User', width: 200, renderCell: (params) => {
+        { field: '_id', headerName: 'ID', width: 300 },
+        { field: 'username', headerName: 'User', width: 200, renderCell: (params) => {
             return (
                 <UserListUser>
-                    <UserListImg src={params.row.avatar} />
+                    <UserListImg src="https://img.freepik.com/vetores-premium/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=2000" />
                     {params.row.username}
                 </UserListUser>
             )
         } },
         { field: 'email', headerName: 'Email', width: 200 },
-        {
-          field: 'status',
-          headerName: 'Status',
-          width: 120
-        },
-        {
-          field: 'transition',
-          headerName: 'Transition',
-          width: 160        
-          
-        },
+        
+        
         {
             field: 'action',
             headerName: 'Action',
@@ -69,10 +72,10 @@ export const UserList = () => {
             renderCell: (params) => {
                 return (
                     <>
-                    <Link to={"/user/" +params.row.id}>
+                    <Link to={"/user/" +params.row._id}>
                     <UserListEdit>Edit</UserListEdit>
                     </Link>
-                    <DeleteOutline style={{ color: "red", cursor: "pointer"}} onClick={()=>handleDelete(params.row.id)} />
+                    <DeleteOutline style={{ color: "red", cursor: "pointer"}} onClick={()=>handleDelete(params.row._id)} />
                     </>
                 )
             }
@@ -83,7 +86,7 @@ export const UserList = () => {
 
   return (
     <Container>
-        <DataGrid rows={data} disableSelectionOnClick columns={columns} pageSize={5} checkboxSelection  />
+        <DataGrid rows={users} disableSelectionOnClick columns={columns} pageSize={5} getRowId={(row) => row._id } checkboxSelection  />
     </Container>
   )
 }
