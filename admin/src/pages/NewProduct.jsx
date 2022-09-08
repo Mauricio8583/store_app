@@ -56,6 +56,8 @@ export const NewProduct = () => {
     const [inputs, setInputs] = useState({});
     const [file, setFile] = useState(null);
     const [cat, setCat] = useState([]);
+    const [colors, setColors] = useState([]);
+    const [size, setSize] = useState([]);
     const dispatch = useDispatch();    
 
     const handleChange = (e) => {
@@ -66,6 +68,12 @@ export const NewProduct = () => {
 
     const handleCat = (e) => {
         setCat(e.target.value.split(','))
+    }
+    const handleColors = (e) => {
+        setColors(e.target.value.split(','))
+    }
+    const handleSize = (e) => {
+        setSize(e.target.value.split(','))
     }
 
     const handleClick = (e) => {
@@ -103,7 +111,7 @@ export const NewProduct = () => {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          const products = {...inputs, img: downloadURL, categories: cat};
+          const products = {...inputs, img: downloadURL, categories: cat, color: colors, size: size};
           addProducts(products, dispatch)          
         });
     }
@@ -123,6 +131,10 @@ export const NewProduct = () => {
                     <input type="text" name='desc' placeholder='description' onChange={handleChange} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
                     <label style={{marginBottom: '10px', color:'gray'}}>Price</label>
                     <input type="number" name='price' placeholder='100' onChange={handleChange} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
+                    <label style={{marginBottom: '10px', color:'gray'}}>Colors</label>
+                    <input type="text" name='color' placeholder='100' onChange={handleColors} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
+                    <label style={{marginBottom: '10px', color:'gray'}}>Size</label>
+                    <input type="text" name='size' placeholder='100' onChange={handleSize} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
                     <label style={{marginBottom: '10px', color:'gray'}}>Category</label>
                     <input type="text" placeholder='Skirts, Shirts, Ties, etc' onChange={handleCat} style={{marginBotton: '10px', border: 'none', padding: '5px', borderBottom: '1px solid black'}} />
                     <label style={{marginBottom: '10px', color:'gray'}}>In Stock</label>

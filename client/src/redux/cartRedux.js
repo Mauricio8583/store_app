@@ -16,7 +16,7 @@ const cartSlice = createSlice({
         removeProduct: (state, action) => {
             state.quantity -= 1;
             state.products.pop();
-            state.total *= state.quantity
+            state.total *= state.quantity            
         }
     }
 });
